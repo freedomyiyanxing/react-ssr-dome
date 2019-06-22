@@ -7,8 +7,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const clientConfig = require('../build/webpack-dev-config');
 const serverConfig = require('../build/webpack-server-config');
-
-let index = 0;
+let index = 0; // 记录更新的次数
 
 function setupDevServer (app, callback) {
   let bundle = null;
@@ -23,6 +22,8 @@ function setupDevServer (app, callback) {
       // 当服务端打包完成, 和客户端打包完成 且获取到客户端打包的ejs模板时 调用回调函数, 调用resolve promise成功
       callback(bundle, template);
       resolves(true);
+      console.log(chalk.yellow(' 每次 更新 打包完成 时触发 ----', index));
+      index += 1; // 每次更新完 加1
     }
   }
 
@@ -40,6 +41,10 @@ function setupDevServer (app, callback) {
   const devMiddleware = webpackDevMiddleware(clientCompiler, {
     publicPath: clientConfig.output.publicPath, // 必填项 输出资源绑定在服务器上的跟目录 在这里是 '/' => 'localhost:3333/'
     logLevel: 'warn', // 在控制台 输入警告的日志
+    index: false,
+    stats: {
+      colors: true
+    },
   });
 
   // 为 app 注册中间件
@@ -63,12 +68,7 @@ function setupDevServer (app, callback) {
   });
 
   // 热更新中间件 (无法解决错误覆盖到页面上)
-  app.use(webpackHotMiddleware(clientCompiler, {
-    // path: '/__webpack_hmr',
-    // overlay: {
-    //   errors: true,
-    // },
-  }));
+  app.use(webpackHotMiddleware(clientCompiler));
 
   // 监视服务端打包入口文件，有更改就更新
   const serverCompiler = webpack(serverConfig);
@@ -79,6 +79,9 @@ function setupDevServer (app, callback) {
   serverCompiler.watch({
     aggregateTimeout: 1000,
   }, (err, stats) => {
+    if (err) {
+      return;
+    }
     const info = stats.toJson();
     if (stats.hasWarnings()) {
       console.warn(info.warnings);
@@ -89,7 +92,6 @@ function setupDevServer (app, callback) {
       return;
     }
     bundle = JSON.parse(readFile(mfs, 'static/json/server-bundle.json'));
-    console.log(chalk.yellow(err, ' 每次 更新 打包完成 时触发 ----', index += 1));
     update();
   });
 

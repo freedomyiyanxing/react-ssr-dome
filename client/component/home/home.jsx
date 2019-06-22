@@ -6,7 +6,7 @@ import img from '../../assets/images/IMG_9187_.jpg';
 const Home = () => (
   <>
     <div className={classes.root}>
-      <h2>1234</h2>
+      <h2>测试错误信息 覆盖的</h2>
       <h2>我是首页标题</h2>
       <div>哈哈哈哈</div>
       <p>11---this is changsha---22</p>
