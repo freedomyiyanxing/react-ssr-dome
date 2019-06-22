@@ -64,7 +64,10 @@ function setupDevServer (app, callback) {
 
   // 热更新中间件 (无法解决错误覆盖到页面上)
   app.use(webpackHotMiddleware(clientCompiler, {
-    path: '/__webpack_hmr',
+    // path: '/__webpack_hmr',
+    // overlay: {
+    //   errors: true,
+    // },
   }));
 
   // 监视服务端打包入口文件，有更改就更新

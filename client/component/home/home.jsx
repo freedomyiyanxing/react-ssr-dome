@@ -12,7 +12,7 @@ const Home = () => (
       <p>11---this is changsha---22</p>
       <div>服务器开发做好了呀</div>
       <div>暂时貌似还可以样的哈</div>
-      <span>不要按F10就不要替换</span>
+      <span>不要按F10就不要替换12</span>
     </div>
     <div>我敢你妈妈</div>
     <img width="300" src={img} alt="" />

@@ -10,7 +10,7 @@ const utils = require('./utils');
 Object.keys(webpackBase.entry).forEach((name) => {
   webpackBase.entry[name].push(
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client?overlay=true',
+    'webpack-hot-middleware/client',
   );
 })
 
