@@ -9,12 +9,14 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "build": "rimraf dist && yarn run build:prod && yarn run build:server",
     "build:prod": "webpack --config build/webpack-prod-config.js",
-    "build:server": "webpack --config build/webpack-server-config.js",
+    "build:server": "cross-env webpack NODE_ENV=server --config build/webpack-server-config.js",
     "build:dev": "rimraf dist && webpack --config build/webpack-dev-config.js",
     "dll": "rimraf static-dll && rimraf build/vendor-manifest.json && webpack --config build/webpack-dll-config.js"
   },
   "dependencies": {
     "@loadable/component": "^5.10.1",
+    "mobx": "^5.10.1",
+    "mobx-react": "^6.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-config": "^5.0.1",

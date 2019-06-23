@@ -60,7 +60,7 @@ module.exports = merge(webpackBase, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.build.env
+      'process.env.target': JSON.stringify(config.build.env),
     }),
     new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')

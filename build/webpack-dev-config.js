@@ -43,6 +43,9 @@ module.exports = merge(webpackBase, {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.target': JSON.stringify(config.dev.env), // 用来区分环境
+    }),
     new webpack.SourceMapDevToolPlugin(), // 生成map文件, 方便调试 (但是没用过 得看文档 https://www.webpackjs.com/plugins/source-map-dev-tool-plugin/)
     new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].css'),

@@ -64,7 +64,7 @@ const _cssLoaders = (options, loaderName) => {
         sourceMap: options.sourceMap,
       },
     },
-  }
+  };
 
   // 提取css;
   const generateLoaders = (name) => {
@@ -100,7 +100,7 @@ const styleLoaders = (options) => {
   output[0] = {
     test: /\.css$/,
     use: _cssLoaders(options),
-  }
+  };
 
   // 遍历需要配置的loader (less || styl || scss || sass)
   options.cssPrecompiled.forEach((v) => {
@@ -108,9 +108,9 @@ const styleLoaders = (options) => {
       test: new RegExp('\\.' + v + '$'),
       use: _cssLoaders(options, v),
       exclude: resolve('node_modules'),
-    }
+    };
     output.push(obj);
-  })
+  });
 
   return output;
 };
@@ -137,11 +137,11 @@ const rules = [
       name: assetsPath('img/[name].[hash:7].[ext]')
     }
   }
-]
+];
 
 module.exports = {
   rules,
   resolve,
   assetsPath,
   styleLoaders,
-}
+};

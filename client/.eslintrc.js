@@ -12,6 +12,6 @@ module.exports = {
     document: true,
   },
   rules: {
-    'no-console': 1,
+    'no-console': 0,
   },
-}
+};

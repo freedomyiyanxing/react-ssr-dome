@@ -9,7 +9,7 @@ module.exports = {
       'react', 'react-dom',
       'react-router-config',
       'react-router-dom',
-      'uuid',
+      'uuid', 'mobx', 'mobx-react',
     ],
   },
   output: {

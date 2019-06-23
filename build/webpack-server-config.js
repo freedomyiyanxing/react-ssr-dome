@@ -17,7 +17,7 @@ module.exports = {
     libraryTarget: 'commonjs2', // 按commonjs打包
   },
   target: 'node', // 指定 node 运行环境;
-  devtool: config.server.devtool, // 这个不太懂, 应该是源文件转换的意思
+  devtool: config.server.devtool, // 编译出对应的.map文件 具体看官网
   externals: [
     nodeExternals({
       whitelist: [ /\.(css|less|styl)/ ], // 忽然css | less | styl ... 让webpack处理
@@ -63,7 +63,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.server.env,
+      'process.env.target': JSON.stringify(config.server.env),
     }),
     new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].css'),

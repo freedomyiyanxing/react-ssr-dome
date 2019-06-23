@@ -10,6 +10,7 @@ module.exports = {
     cssPrecompiled: ['less', 'styl'], // 需要配置的css预编译
     port: 3333, // 端口号
     autoOpenBrowser: false, // 是否自动打开网页
+    env: 'client-development',
   },
   build: {
     assetsSubDirectory: 'static',
@@ -17,10 +18,11 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     devtool: 'source-map', // 适用于生产环境
     cssSourceMap: false, // 是否输出map文件
+    env: 'client-production',
   },
   server: {
     devtool: 'source-map', // 适用于生产环境
     cssSourceMap: false, // 是否输出map文件
-    env: '"server"',
+    env: '"server-production"',
   },
 };
