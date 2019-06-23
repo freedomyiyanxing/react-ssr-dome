@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './tset.css';
-import img from '../../assets/images/IMG_9187_.jpg';
+// import img from '../../assets/images/IMG_9187_.jpg';
 
 const Home = () => (
   <>
@@ -15,7 +15,6 @@ const Home = () => (
       <span>不要按F10就不要替换12</span>
     </div>
     <div>我敢你妈妈</div>
-    <img width="300" src={img} alt="" />
   </>
 );
 

@@ -70,4 +70,4 @@ module.exports = merge(webpackBase, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin()
   ]
-})
+});

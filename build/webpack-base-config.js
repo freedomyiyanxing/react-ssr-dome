@@ -2,6 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const HTMLWebpackPlugins = require('html-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const utils = require('./utils');
 const config = require('../config/index');
@@ -32,7 +33,10 @@ module.exports = {
         from: utils.resolve('static-dll'), // 原址
         to: config.dev.assetsSubDirectory, // 目的地
       }
-    ])
+    ]),
+    new LoadablePlugin({
+      filename: utils.assetsPath('/json/loadable-stats.json'), // 打包后的路径
+    }),
   ],
   performance: { // 配置如何展示性能提示。例如，如果一个资源超过 250kb，webpack 会对此输出一个警告来通知你。
     hints: false // 参数false (不提示) | "error" (错误提示) | "warning (警告提示)"

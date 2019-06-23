@@ -2,11 +2,13 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const vm = require('vm');
 const ejs = require('ejs');
+const { ChunkExtractor } = require('@loadable/server');
 
 class ServerRender {
-  constructor (bundle, template) {
+  constructor (bundle, template, loadableStats) {
     this.template = template;
     this.serverEntry = bundle;
+    this.loadableStats = loadableStats;
   }
 
   renderToString (req, res) {
@@ -16,9 +18,13 @@ class ServerRender {
 
       const render = () => {
         const context = {};
+        const extractor = new ChunkExtractor({
+          stats: this.loadableStats,
+          entrypoints: ['app'],
+        });
         const component = createApp(context, req);
         const app = ReactDOMServer.renderToString(
-          React.createElement(component)
+          extractor.collectChunks(React.createElement(component))
         );
 
         if (context.url) {
@@ -27,7 +33,7 @@ class ServerRender {
           return;
         }
 
-        resolve(this._generateHTML(app));
+        resolve(this._generateHTML(app, extractor));
       };
 
       render();
@@ -61,12 +67,16 @@ class ServerRender {
   /**
    * 模板拼接,
    * @param appString
+   * @param extractor
    * @returns {String|Promise<String>}
    * @private
    */
-  _generateHTML (appString) {
+  _generateHTML (appString, extractor) {
     return ejs.render(this.template, {
       appString,
+      linkTags: extractor.getLinkTags(),
+      styleTags: extractor.getStyleTags(),
+      scriptTags: extractor.getScriptTags(),
     })
   }
 }

@@ -13,19 +13,20 @@ function setupDevServer (app, callback) {
   let bundle = null;
   let resolves = null;
   let template = null;
+  let loadableStats = null;
 
   // 创建一个promise对象
   const readyPromise = new Promise((resolve, reject) => { resolves = resolve });
 
   const update = () => {
-    if (bundle && template) {
+    if (bundle && template && loadableStats) {
       // 当服务端打包完成, 和客户端打包完成 且获取到客户端打包的ejs模板时 调用回调函数, 调用resolve promise成功
-      callback(bundle, template);
+      callback(bundle, template, loadableStats);
       resolves(true);
       console.log(chalk.yellow(' 每次 更新 打包完成 时触发 ----', index));
       index += 1; // 每次更新完 加1
     }
-  }
+  };
 
   const readFile = (fs, filename) => fs.readFileSync(path.join(clientConfig.output.path, filename), 'utf-8');
 
@@ -63,7 +64,7 @@ function setupDevServer (app, callback) {
     }
     // 获取客户端打包的ejs模板
     template = readFile(devMiddleware.fileSystem, 'server.ejs');
-    // loadableStats = JSON.parse(readFile(devMiddleware.fileSystem, 'loadable-stats.json'));
+    loadableStats = JSON.parse(readFile(devMiddleware.fileSystem, 'static/json/loadable-stats.json'));
     update();
   });
 

@@ -29,13 +29,14 @@ if (isProd) { // 运行时
 
   let template = fs.readFileSync(path.join(__dirname, '../dist/server.ejs'), 'utf-8');
   let bundle = require('../dist/static/json/server-bundle.json');
+  let loadableStats = require('../dist/static/json/loadable-stats.json');
   console.log(chalk.green(' ----- 服务器 准备 完成 可以请求了 -----'));
-  renderer = new ServerRender(bundle, template);
+  renderer = new ServerRender(bundle, template, loadableStats);
 } else { // 开发时
   console.log(chalk.red('开发时'));
 
-  readyPromise = devServer(app, (bundle, template) => {
-    renderer = new ServerRender(bundle, template);
+  readyPromise = devServer(app, (bundle, template, loadableStats) => {
+    renderer = new ServerRender(bundle, template, loadableStats);
   });
 }
 

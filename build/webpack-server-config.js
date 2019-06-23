@@ -28,7 +28,33 @@ module.exports = {
   },
   module: {
     rules: [
-      ...utils.rules,
+      // ...utils.rules,
+      {
+        test: /\.(js|jsx)$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+              plugins: [
+                'dynamic-import-node',
+                '@loadable/babel-plugin',
+                ['@babel/plugin-proposal-decorators', { 'legacy': true }]
+              ]
+            }
+          }
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
       ...utils.styleLoaders({
         cssPrecompiled: config.dev.cssPrecompiled,
         sourceMap: config.server.cssSourceMap,
