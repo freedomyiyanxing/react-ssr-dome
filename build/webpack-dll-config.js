@@ -29,7 +29,7 @@ module.exports = {
        * 定义文件生成的位置
        * [name]的部分由entry的名字替换
        */
-      path: path.join(__dirname, '.','[name]-manifest.json'), // 输出在当前文件夹下面
+      path: path.join(__dirname, '.', '[name]-manifest.json'), // 输出在当前文件夹下面
       /**
        * name
        * dll bundle 输出到那个全局变量上
