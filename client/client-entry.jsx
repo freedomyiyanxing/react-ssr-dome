@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-
-import Home from './component/home/home';
-import Details from './component/details/details';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 const Main = () => (
-  <div>
-    <Home />
-    <Details />
-  </div>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
 const root = document.getElementById('root');

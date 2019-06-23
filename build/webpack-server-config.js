@@ -48,5 +48,4 @@ module.exports = {
       filename: utils.assetsPath('json/server-bundle.json'), // 输出路径
     })
   ]
-
-}
+};

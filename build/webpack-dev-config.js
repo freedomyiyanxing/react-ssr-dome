@@ -12,7 +12,7 @@ Object.keys(webpackBase.entry).forEach((name) => {
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?noInfo=true&reload=true',
   );
-})
+});
 
 // 设置eslint配置
 const createEslintRule = () => ({
@@ -24,7 +24,7 @@ const createEslintRule = () => ({
     formatter: require('eslint-friendly-formatter'),
     emitWarning: config.dev.showEslintErrorsInOverlay,
   },
-})
+});
 
 module.exports = merge(webpackBase, {
   mode: 'development',

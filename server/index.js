@@ -19,7 +19,7 @@ app.use(express.static('dist'));
 app.use(favicon(path.join(__dirname, '../favicon.ico')));
 
 // 获取运行环境
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
 let renderer;
 let readyPromise;
@@ -42,7 +42,7 @@ if (isProd) { // 运行时
 const render = (req, res) => {
   console.log(chalk.cyan('visit url: ' + req.url));
 
-  renderer.renderToString().then((html) => {
+  renderer.renderToString(req, res).then((html) => {
     res.send(html);
   })
 };
@@ -71,4 +71,4 @@ app.listen(port, (err) => {
   if (config.dev.autoOpenBrowser) {
     open(uri);
   }
-})
+});

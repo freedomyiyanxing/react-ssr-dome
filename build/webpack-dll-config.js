@@ -5,7 +5,12 @@ module.exports = {
   mode: 'production',
   devtool: false,
   entry: {
-    vendor: ['react', 'react-dom'],
+    vendor: [
+      'react', 'react-dom',
+      'react-router-config',
+      'react-router-dom',
+      'uuid',
+    ],
   },
   output: {
     path: path.join(__dirname, '../static-dll/js'),

@@ -6,21 +6,29 @@ const ejs = require('ejs');
 class ServerRender {
   constructor (bundle, template) {
     this.template = template;
-    this.serverEntry = this._createEntry(bundle);
+    this.serverEntry = bundle;
   }
 
-  renderToString () {
-    return new Promise((resolve, reject) => {
-      const serverEntry = this.serverEntry;
+  renderToString (req, res) {
+    return new Promise((resolve) => {
+      const serverEntry = this._createEntry(this.serverEntry);
       const createApp = serverEntry.default.createApp;
 
       const render = () => {
-        const component = createApp();
+        const context = {};
+        const component = createApp(context, req);
         const app = ReactDOMServer.renderToString(
           React.createElement(component)
         );
+
+        if (context.url) {
+          res.status(302).setHeader('Location', context.url);
+          res.end();
+          return;
+        }
+
         resolve(this._generateHTML(app));
-      }
+      };
 
       render();
     })

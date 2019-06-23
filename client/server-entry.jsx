@@ -1,16 +1,14 @@
 import React from 'react';
+import { StaticRouter } from 'react-router-dom';
+import App from './App';
 
-import Home from './component/home/home';
-import Details from './component/details/details';
-
-const createApp = () => {
-  const App = () => (
-    <div>
-      <Home />
-      <Details />
-    </div>
+const createApp = (contextRouter, req) => {
+  const Main = () => (
+    <StaticRouter context={contextRouter} location={req.url}>
+      <App />
+    </StaticRouter>
   );
-  return App;
+  return Main;
 };
 
 export default {
