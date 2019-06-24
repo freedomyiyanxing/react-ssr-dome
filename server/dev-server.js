@@ -10,8 +10,8 @@ const serverConfig = require('../build/webpack-server-config');
 let index = 0; // 记录更新的次数
 
 function setupDevServer (app, callback) {
-  let bundle = null;
   let resolves = null;
+  let bundle = null;
   let template = null;
   let loadableStats = null;
 

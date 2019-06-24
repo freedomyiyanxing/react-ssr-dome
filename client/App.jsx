@@ -6,8 +6,11 @@ import routers from './router/index';
 
 const App = () => (
   <>
+    {
+      console.log('app0')
+    }
     <Link to="/index">首页</Link>
-    <Link to="/details">详情页</Link>
+    <Link to="/details">详情页2</Link>
     <Switch>
       {
         routers.map(router => (

@@ -13,9 +13,7 @@ const Main = () => (
 const root = document.getElementById('root');
 
 loadableReady().then(() => {
-  // 完美的避开错误 Warning: Expected server HTML to contain a matching <div> in <div>.;
-  const renderOrHydrate = root.innerHTML.trim().length ? 'hydrate' : 'render';
-  ReactDom[renderOrHydrate](<Main />, root);
+  ReactDom.hydrate(<Main />, root);
 });
 
 // 告诉 webpack 允许此模块的热更新
