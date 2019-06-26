@@ -62,17 +62,23 @@ react-ssr-dome   -主工程目录
 ## 待解决问题
 ```
 1、暂时不支持css热更新
-    原因： mini-css-extract-plugin 不支持
-    解决方案：开发时不使用 mini-css-extract-plugin 使用 style-loader
-    (暂未解决)
+  原因： mini-css-extract-plugin 不支持
+  解决方案：开发时不使用 mini-css-extract-plugin 使用 style-loader
+  (暂未解决)
   
-2、代码错误时不能把错误覆盖到DOM上显示
-    原因 未知  (大概就 webpack-hot-middleware 的问题)
+2、代码错误时不能把错误覆盖到DOM上显示(已解决)
+  原因 未知  (大概就 webpack-hot-middleware 的问题)
 ```
 
 ## 已解决问题 (之前使用webpack都没解决的问题)
 ```
 1、在 webpack.mode 配置为 production 模式时 打包失败
-     原因 使用babel7.x的全家桶时, @babel/preset-env 不能编译部分es6的语法
-     解决方案：targets: 设置 "chrome": "58", "ie": "11" 把es6解析成es5
+  原因 使用babel7.x的全家桶时, @babel/preset-env 不能编译部分es6的语法
+  解决方案：targets: 设置 "chrome": "58", "ie": "11" 把es6解析成es5
+2、首页多次render的问题,      
+  解决方案, 不在对模板文件进行打包,
+  做的操作：清除ejs模板, 改成html当作模板
+3、 代码错误时不能把错误覆盖到DOM上显示  
+  解决方案 webpack-dev-config中的入口中添加overlayWarnings选项
+  做的操作: 添加错误样式的样式修改,
 ```
