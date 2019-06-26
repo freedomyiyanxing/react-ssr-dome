@@ -24,10 +24,12 @@ const isProd = process.env.NODE_ENV === 'production';
 let renderer;
 let readyPromise;
 
+// 获取模板文件
+const template = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf-8');
+
 if (isProd) { // 运行时
   console.log(chalk.red('运行时'));
 
-  let template = fs.readFileSync(path.join(__dirname, '../dist/server.ejs'), 'utf-8');
   let bundle = require('../dist/static/json/server-bundle.json');
   let loadableStats = require('../dist/static/json/loadable-stats.json');
   console.log(chalk.green(' ----- 服务器 准备 完成 可以请求了 -----'));
@@ -35,7 +37,7 @@ if (isProd) { // 运行时
 } else { // 开发时
   console.log(chalk.red('开发时'));
 
-  readyPromise = devServer(app, (bundle, template, loadableStats) => {
+  readyPromise = devServer(app, (bundle, loadableStats) => {
     renderer = new ServerRender(bundle, template, loadableStats);
   });
 }

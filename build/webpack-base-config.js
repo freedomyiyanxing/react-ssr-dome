@@ -1,7 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-const HTMLWebpackPlugins = require('html-webpack-plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const utils = require('./utils');
@@ -20,10 +19,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HTMLWebpackPlugins({
-      template: `!!ejs-compiled-loader!${utils.resolve('client/server.ejs')}`,
-      filename: 'server.ejs',
-    }),
     new webpack.DllReferencePlugin({
       context: path.join(__dirname, '..'),
       manifest: require('./vendor-manifest.json'), // 映射的路径

@@ -12,16 +12,15 @@ let index = 0; // 记录更新的次数
 function setupDevServer (app, callback) {
   let resolves = null;
   let bundle = null;
-  let template = null;
   let loadableStats = null;
 
   // 创建一个promise对象
   const readyPromise = new Promise((resolve, reject) => { resolves = resolve });
 
   const update = () => {
-    if (bundle && template && loadableStats) {
+    if (bundle && loadableStats) {
       // 当服务端打包完成, 和客户端打包完成 且获取到客户端打包的ejs模板时 调用回调函数, 调用resolve promise成功
-      callback(bundle, template, loadableStats);
+      callback(bundle, loadableStats);
       resolves(true);
       console.log(chalk.yellow(' 每次 更新 打包完成 时触发 ----', index));
       index += 1; // 每次更新完 加1
@@ -42,10 +41,6 @@ function setupDevServer (app, callback) {
   const devMiddleware = webpackDevMiddleware(clientCompiler, {
     publicPath: clientConfig.output.publicPath, // 必填项 输出资源绑定在服务器上的跟目录 在这里是 '/' => 'localhost:3333/'
     logLevel: 'warn', // 在控制台 输入警告的日志
-    index: false,
-    stats: {
-      colors: true
-    },
   });
 
   // 为 app 注册中间件
@@ -62,14 +57,17 @@ function setupDevServer (app, callback) {
       console.error(info.errors);
       return;
     }
-    // 获取客户端打包的ejs模板
-    template = readFile(devMiddleware.fileSystem, 'server.ejs');
+    // 获取代码拆分的json说明文件
     loadableStats = JSON.parse(readFile(devMiddleware.fileSystem, 'static/json/loadable-stats.json'));
     update();
   });
 
   // 热更新中间件 (无法解决错误覆盖到页面上)
-  app.use(webpackHotMiddleware(clientCompiler));
+  app.use(webpackHotMiddleware(clientCompiler, {
+    log: console.log,
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000,
+  }));
 
   // 监视服务端打包入口文件，有更改就更新
   const serverCompiler = webpack(serverConfig);

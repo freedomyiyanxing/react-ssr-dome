@@ -1,7 +1,6 @@
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const vm = require('vm');
-const ejs = require('ejs');
 const { ChunkExtractor } = require('@loadable/server');
 
 class ServerRender {
@@ -72,12 +71,12 @@ class ServerRender {
    * @private
    */
   _generateHTML (appString, extractor) {
-    return ejs.render(this.template, {
-      appString,
-      linkTags: extractor.getLinkTags(),
-      styleTags: extractor.getStyleTags(),
-      scriptTags: extractor.getScriptTags(),
-    })
+    return this.template
+      .replace('<!--react-ssr-head-->',
+        `${extractor.getLinkTags()}\n${extractor.getStyleTags()}
+      `)
+      .replace('<!--appString-->', appString)
+      .replace('<!--react-ssr-outlet-->', extractor.getScriptTags());
   }
 }
 
