@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
+import MyHelmet from '../../common/my-helmet/my-helmet';
 import { HomeStore } from '../../store/index';
 import classes from './tset.css';
 
@@ -19,6 +20,11 @@ class Home extends React.Component {
     const { banners } = homeStore;
     return (
       <>
+        <MyHelmet
+          title="home"
+          store={homeStore}
+          content={['banners', 'shops', 'products', 'recommend', 'historys']}
+        />
         <h2>{banners.text}</h2>
         <div className={classes.root}>
           <button type="button" onClick={this.handleClick}>点击测试</button>

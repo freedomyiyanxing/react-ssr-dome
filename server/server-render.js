@@ -3,6 +3,7 @@ const vm = require('vm');
 const ReactDOMServer = require('react-dom/server');
 const { ChunkExtractor } = require('@loadable/server');
 const serializeJavascript = require('serialize-javascript');
+const { Helmet } = require('react-helmet');
 
 const getStoreState = (stores) => {
   return Object.keys(stores).reduce((result, storeName) => {
@@ -39,9 +40,13 @@ class ServerRender {
 
         // 等待异步数据获取完成执行
         Promise.all(promiseAll).then(() => {
+          // 生成html
           const app = ReactDOMServer.renderToString(
             extractor.collectChunks(React.createElement(component))
           );
+
+          // 获取组件中的设置的 helment信息
+          const helmet = Helmet.renderStatic();
 
           // 把数据json化;
           const appStore = serializeJavascript(getStoreState(createStore));
@@ -53,7 +58,7 @@ class ServerRender {
             return;
           }
 
-          resolve(this._generateHTML(app, extractor, appStore));
+          resolve(this._generateHTML(app, extractor, appStore, helmet));
         })
       };
 
@@ -90,11 +95,14 @@ class ServerRender {
    * @param appString
    * @param extractor
    * @param appStore
+   * @param helmet
    * @returns {String|Promise<String>}
    * @private
    */
-  _generateHTML (appString, extractor, appStore) {
+  _generateHTML (appString, extractor, appStore, helmet) {
     return this.template
+      .replace('<!--title-->', helmet.title.toString())
+      .replace('<!--meta-->', helmet.meta.toString())
       .replace('<!--react-ssr-head-->', `${extractor.getLinkTags()}\n${extractor.getStyleTags()}`)
       .replace('<!--appString-->', appString)
       .replace('<!--appStore-->', `<script type="text/javascript">window.__INITIAL__STATE__ = ${appStore}</script>`)

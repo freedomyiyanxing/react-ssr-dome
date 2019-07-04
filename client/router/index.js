@@ -1,13 +1,10 @@
 import uuid from 'uuid';
 import loadable from '@loadable/component';
 
-// import Home from '../component/home/home';
-// import Details from '../component/details/details';
 import { homeLoadData } from '../component/home/home';
 
 const Homes = loadable(() => import('../component/home/home'));
 const Details = loadable(() => import('../component/details/details'));
-
 
 const routers = [
   {
