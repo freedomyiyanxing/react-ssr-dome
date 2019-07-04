@@ -7,9 +7,9 @@ module.exports = {
   entry: {
     vendor: [
       'react', 'react-dom',
-      'react-router-config',
       'react-router-dom',
       'uuid', 'mobx', 'mobx-react',
+      'prop-types', 'react-helmet',
     ],
   },
   output: {

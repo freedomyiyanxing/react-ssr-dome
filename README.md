@@ -82,3 +82,5 @@ react-ssr-dome   -主工程目录
   解决方案 webpack-dev-config中的入口中添加overlayWarnings选项
   做的操作: 添加错误样式的样式修改,
 ```
+
+灵感来自于 -> https://github.com/LiuLingyang/react-ssr-framework

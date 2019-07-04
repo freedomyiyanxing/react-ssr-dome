@@ -20,7 +20,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-config": "^5.0.1",
+    "react-helmet": "^5.2.1",
     "react-router-dom": "^5.0.1",
     "serialize-javascript": "^1.7.0",
     "uuid": "^3.3.2"

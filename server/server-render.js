@@ -20,6 +20,7 @@ class ServerRender {
 
   renderToString (req, res) {
     return new Promise((resolve) => {
+      // 获取服务端打包完成的js
       const serverEntry = this._createEntry(this.serverEntry);
       const createApp = serverEntry.default.createApp;
       const createStore = serverEntry.default.createStoreMap();
@@ -27,12 +28,16 @@ class ServerRender {
 
       const render = () => {
         const context = {};
+        // 客户端代码拆分 (服务端的代码是不存在需要拆分的)
         const extractor = new ChunkExtractor({
           stats: this.loadableStats,
           entrypoints: ['app'],
         });
+
+        // 调用服务端入口方法
         const component = createApp(createStore, context, req);
 
+        // 等待异步数据获取完成执行
         Promise.all(promiseAll).then(() => {
           const app = ReactDOMServer.renderToString(
             extractor.collectChunks(React.createElement(component))

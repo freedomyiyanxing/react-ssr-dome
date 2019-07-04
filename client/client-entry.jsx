@@ -26,7 +26,6 @@ const Main = () => (
 const root = document.getElementById('root');
 
 loadableReady().then(() => {
-  console.log('到底为什么要加载两次');
   ReactDom.hydrate(<Main />, root);
 });
 
