@@ -15,12 +15,14 @@
   },
   "dependencies": {
     "@loadable/component": "^5.10.1",
-    "mobx": "^5.10.1",
+    "mobx": "^5.11.0",
     "mobx-react": "^6.1.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-config": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "serialize-javascript": "^1.7.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

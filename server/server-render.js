@@ -1,7 +1,15 @@
 const React = require('react');
-const ReactDOMServer = require('react-dom/server');
 const vm = require('vm');
+const ReactDOMServer = require('react-dom/server');
 const { ChunkExtractor } = require('@loadable/server');
+const serializeJavascript = require('serialize-javascript');
+
+const getStoreState = (stores) => {
+  return Object.keys(stores).reduce((result, storeName) => {
+    result[storeName] = stores[storeName].toJson();
+    return result
+  }, {})
+};
 
 class ServerRender {
   constructor (bundle, template, loadableStats) {
@@ -14,6 +22,8 @@ class ServerRender {
     return new Promise((resolve) => {
       const serverEntry = this._createEntry(this.serverEntry);
       const createApp = serverEntry.default.createApp;
+      const createStore = serverEntry.default.createStoreMap();
+      const promiseAll = serverEntry.default.promiseAll;
 
       const render = () => {
         const context = {};
@@ -21,18 +31,25 @@ class ServerRender {
           stats: this.loadableStats,
           entrypoints: ['app'],
         });
-        const component = createApp(context, req);
-        const app = ReactDOMServer.renderToString(
-          extractor.collectChunks(React.createElement(component))
-        );
+        const component = createApp(createStore, context, req);
 
-        if (context.url) {
-          res.status(302).setHeader('Location', context.url);
-          res.end();
-          return;
-        }
+        Promise.all(promiseAll).then(() => {
+          const app = ReactDOMServer.renderToString(
+            extractor.collectChunks(React.createElement(component))
+          );
 
-        resolve(this._generateHTML(app, extractor));
+          // 把数据json化;
+          const appStore = serializeJavascript(getStoreState(createStore));
+
+          // 路由重定向
+          if (context.url) {
+            res.status(302).setHeader('Location', context.url);
+            res.end();
+            return;
+          }
+
+          resolve(this._generateHTML(app, extractor, appStore));
+        })
       };
 
       render();
@@ -67,15 +84,15 @@ class ServerRender {
    * 模板拼接,
    * @param appString
    * @param extractor
+   * @param appStore
    * @returns {String|Promise<String>}
    * @private
    */
-  _generateHTML (appString, extractor) {
+  _generateHTML (appString, extractor, appStore) {
     return this.template
-      .replace('<!--react-ssr-head-->',
-        `${extractor.getLinkTags()}\n${extractor.getStyleTags()}
-      `)
+      .replace('<!--react-ssr-head-->', `${extractor.getLinkTags()}\n${extractor.getStyleTags()}`)
       .replace('<!--appString-->', appString)
+      .replace('<!--appStore-->', `<script type="text/javascript">window.__INITIAL__STATE__ = ${appStore}</script>`)
       .replace('<!--react-ssr-outlet-->', extractor.getScriptTags());
   }
 }
