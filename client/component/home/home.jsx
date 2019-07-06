@@ -28,7 +28,7 @@ class Home extends React.Component {
         <h2>{banners.text}</h2>
         <div className={classes.root}>
           <button type="button" onClick={this.handleClick}>点击测试</button>
-          <h2>222测试错误信息 覆盖的</h2>
+          <h2>222测试错误信息hahah </h2>
           <h2>我是首页标题</h2>
           <div>哈哈哈哈</div>
           <p>11---this is changsha---22</p>
