@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MyHelmet from '../../common/my-helmet/my-helmet';
+
 import classes from './test.css';
 
 const Details = () => {
@@ -8,14 +10,20 @@ const Details = () => {
   };
 
   return (
-    <div>
-      <button type="button" onClick={handleClick}>1点击测试</button>
-      <h2 className={classes.text}>测试热更新1</h2>
-      <div>22再次测试 ejs 模板 是okd</div>
-      <span>我没按你别跟新咯</span>
-      <p>this is details page</p>
-      <div>多试两遍把。。。1。</div>
-    </div>
+    <>
+      <MyHelmet
+        title="details"
+        content={['我是详情页']}
+      />
+      <div>
+        <button type="button" onClick={handleClick}>1点击测试</button>
+        <h2 className={classes.text}>测试热更新1</h2>
+        <div>22再次测试 ejs 模板 是okd</div>
+        <span>我没按你别跟新咯</span>
+        <p>this is details page</p>
+        <div>多试两遍把。。。1。</div>
+      </div>
+    </>
   );
 };
 

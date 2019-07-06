@@ -29,6 +29,9 @@ yarn start
 # 目录结构
 ```html
 react-ssr-dome   -主工程目录
+|---babel   - babel配置目录
+    |---client-babel.js 客户端 babel配置
+    |---server-babel.js 服务端 babel配置
 |---build   - 工程构建目录，包含了，开发，上线中所用到的构建脚本及插件
     |---plugins   - 构建中所用到的自定义插件
     |---utils.js  - 打包常用方法
@@ -50,7 +53,6 @@ react-ssr-dome   -主工程目录
     |---entry-server.js   - 服务端打包入口
 |---static-dll  - 不参与webpack打包的静态资源
     |---js  - 不参与webpack打包的静态js (第三方通用组件)
-|---.babelrc.js           - babel 配置文件
 |---.editorconfig         - 编辑器 配置文件
 |---.eslintrc.js          - 工程代码 eslint 配置文件
 |---.gitignore            - git 提交配置

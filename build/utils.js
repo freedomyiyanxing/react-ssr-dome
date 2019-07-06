@@ -126,7 +126,13 @@ const rules = [
           workers: os.cpus().length - 1, // 开启多核编译
         },
       },
-      'babel-loader',
+      {
+        loader: 'babel-loader',
+        options: {
+          babelrc: false,
+          configFile: path.join(__dirname, '../babel/client-babel.js'),
+        },
+      }
     ],
   },
   {

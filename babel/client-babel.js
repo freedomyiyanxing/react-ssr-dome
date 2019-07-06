@@ -34,4 +34,3 @@ const env = {
 module.exports = {
   presets, plugins, env,
 };
-
