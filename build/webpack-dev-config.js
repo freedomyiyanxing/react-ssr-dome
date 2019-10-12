@@ -7,14 +7,14 @@ const config = require('../config/index');
 const utils = require('./utils');
 
 // 设置错误显示的字体颜色
-var ansiColors = {
+const ansiColors = {
   lightgrey: '12fdf4',
   red: 'FF0000',
   darkgrey: '658cff',
 };
 
 // 设置错误div的内联样式
-var overlayStyles = {
+const overlayStyles = {
   color: 'rgb(245, 7, 7)',
   background: 'rgba(16, 16, 16, 0.9)',
   fontSize: '20px',

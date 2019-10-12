@@ -5,13 +5,13 @@
   "author": "freedom.yi",
   "license": "MIT",
   "scripts": {
-    "dev": "rimraf dist && node server/index.js",
+    "dev": "node server/index.js",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "build": "rimraf dist && yarn run build:prod && yarn run build:server",
     "build:prod": "webpack --config build/webpack-prod-config.js",
     "build:server": "webpack --config build/webpack-server-config.js",
     "build:dev": "rimraf dist && webpack --config build/webpack-dev-config.js",
-    "dll": "rimraf static-dll && rimraf build/vendor-manifest.json && webpack --config build/webpack-dll-config.js"
+    "dll": "rimraf static && webpack --config build/webpack-dll-config.js"
   },
   "dependencies": {
     "@loadable/component": "^5.10.1",

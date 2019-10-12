@@ -44,7 +44,7 @@ react-ssr-dome   -主工程目录
 |---node_modules    - 项目依赖目录
 |---server  - 工程启动目录
     |---dev-server.js    - 开发环境配置文件
-    |---index.js         - 工程启动文件
+    |---index.jsx         - 工程启动文件
     |---renderer.js      - 服务端生成 html 配置文件
 |---client
     |---.eslintrc.js      - 项目代码 eslint 配置文件

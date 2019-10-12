@@ -4,5 +4,5 @@ yarn-error.log
 .idea
 #注释: dist打包后文件
 dist
-#注释: static-dll是第三方包
-static-dll
+#注释: static是第三方包
+static

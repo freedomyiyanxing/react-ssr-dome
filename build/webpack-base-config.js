@@ -21,11 +21,11 @@ module.exports = {
   plugins: [
     new webpack.DllReferencePlugin({
       context: path.join(__dirname, '..'),
-      manifest: require('./vendor-manifest.json'), // 映射的路径
+      manifest: require("../static/json/vendor-manifest.json"), // 映射的路径
     }),
     new CopyWebpackPlugin([ // 复制文件插件
       {
-        from: utils.resolve('static-dll'), // 原址
+        from: utils.resolve('static'), // 原址
         to: config.dev.assetsSubDirectory, // 目的地
       }
     ]),

@@ -6,15 +6,18 @@ module.exports = {
   devtool: false,
   entry: {
     vendor: [
-      'react', 'react-dom',
+      'react',
+      'react-dom',
       'react-router-dom',
-      'uuid', 'mobx', 'mobx-react',
-      'prop-types', 'react-helmet',
+      'mobx',
+      'mobx-react',
+      'prop-types',
+      'react-helmet',
     ],
   },
   output: {
-    path: path.join(__dirname, '../static-dll/js'),
-    filename: '[name].dll.js',
+    path: path.join(__dirname, '../static/js'),
+    filename: '[name]_library_[chunkhash].js',
     /**
      * output.library
      * 将会定义为 window.${output.library}
@@ -29,7 +32,7 @@ module.exports = {
        * 定义文件生成的位置
        * [name]的部分由entry的名字替换
        */
-      path: path.join(__dirname, '.', '[name]-manifest.json'), // 输出在当前文件夹下面
+      path: path.join(__dirname, '../static/json/[name]-manifest.json'), // 输出在当前文件夹下面
       /**
        * name
        * dll bundle 输出到那个全局变量上
