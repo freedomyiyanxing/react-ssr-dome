@@ -30,8 +30,8 @@ const template = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf-8')
 if (isProd) { // 运行时
   console.log(chalk.red('运行时'));
 
-  let bundle = require('../dist/static/json/server-bundle.json');
-  let loadableStats = require('../dist/static/json/loadable-stats.json');
+  let bundle = require(path.join(__dirname, '../dist/static/json/server-bundle.json'));
+  let loadableStats = require(path.join(__dirname, '../dist/static/json/loadable-stats.json'));
   console.log(chalk.green(' ----- 服务器 准备 完成 可以请求了 -----'));
   renderer = new ServerRender(bundle, template, loadableStats);
 } else { // 开发时
