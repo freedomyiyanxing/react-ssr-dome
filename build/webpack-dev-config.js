@@ -54,6 +54,7 @@ module.exports = merge(webpackBase, {
     filename: utils.assetsPath('js/[name].js'),
     publicPath: config.dev.assetsPublicPath,
   },
+  devtool: config.dev.devtool,
   module: {
     rules: [
       createEslintRule(),

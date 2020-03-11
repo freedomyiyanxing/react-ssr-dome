@@ -1,4 +1,5 @@
 import { observable, action, toJS } from 'mobx';
+import uuid from 'uuid';
 
 class HomeStore {
   @observable banners;
@@ -15,7 +16,7 @@ class HomeStore {
       resolve(true);
       this.banners = {
         index: 1,
-        id: 'dfsdfsdf',
+        id: uuid(),
         text: '这是一个Home数据',
       };
     });

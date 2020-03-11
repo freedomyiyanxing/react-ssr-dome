@@ -8,14 +8,14 @@ const Details = loadable(() => import('../component/details/details'));
 
 const routers = [
   {
-    key: uuid,
+    key: uuid(),
     path: '/index',
     component: Homes,
     exact: true,
     loadData: homeLoadData,
   },
   {
-    key: uuid,
+    key: uuid(),
     path: '/details',
     component: Details,
     exact: true,

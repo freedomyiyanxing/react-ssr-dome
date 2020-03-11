@@ -5,6 +5,7 @@ module.exports = {
     assetsRoot: path.join(__dirname, '../dist'), // 输出路径
     assetsSubDirectory: 'static', // 输出文件
     assetsPublicPath: '/',
+    devtool: 'cheap-eval-source-map',
     showEslintErrorsInOverlay: true, // 是否输出eslint警告
     cssSourceMap: true, // 是否输出map文件
     cssPrecompiled: ['less', 'styl'], // 需要配置的css预编译

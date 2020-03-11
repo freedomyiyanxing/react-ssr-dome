@@ -11,13 +11,30 @@ import classes from './tset.css';
 }))
 @observer
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: 'render之前',
+    };
+  }
+
+  componentDidMount() {
+    // setTimeout(() => {
+    //   this.setState({
+    //     open: 'componentDidMount 操作了一下',
+    //   });
+    // }, 2000);
+  }
+
   handleClick = () => {
     console.log('我是首页');
   };
 
   render() {
     const { homeStore } = this.props;
+    const { open } = this.state;
     const { banners } = homeStore;
+    console.log('你render了嘛', homeStore);
     return (
       <>
         <MyHelmet
@@ -25,7 +42,12 @@ class Home extends React.Component {
           store={homeStore}
           content={['banners', 'shops', 'products', 'recommend', 'historys']}
         />
-        <h2>{banners.text}</h2>
+        <div>
+          <p>{banners.index}</p>
+          <p>{banners.id}</p>
+          <p>{banners.text}</p>
+        </div>
+        <p>{open}</p>
         <div className={classes.root}>
           <button type="button" onClick={this.handleClick}>点击测试</button>
           <h2>222测试错误信息hahah </h2>
